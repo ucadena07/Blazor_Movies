@@ -1,0 +1,78 @@
+﻿@page "/movies/search"
+@inject IRepository _repo
+<h3>Search Movies</h3>
+
+<div style="display: inline-flex">
+    <div class="form-group mb-2">
+        <label class="sr-only" for="title">Title</label>
+        <input type="text" id="title" class="form-control" placeholder="Movie Title"
+               @onkeypress="@((KeyboardEventArgs e) =>  TitleKeyPress(e))"
+               @bind-value="title"
+               @bind-value:event="oninput" />
+    </div>
+    <div class="form-group mx-sm-3 mb-2 mt-4">
+        <select class="form-control" @bind="selected">
+            <option value="0">
+                --Select a genre
+            </option>
+            @foreach (var item in Genres)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group mx-sm-3 mb-2 mt-4">
+        <input type="checkbox" class="form-check-input" id="upcomingRealeses" @bind="upcomingRealeases" />
+        <label class="form-check-label" for="upcomingReleases">
+            Upcoming Releases
+        </label>
+    </div>
+    <div class="form-group mx-sm-3 mb-2 mt-4">
+        <input type="checkbox" class="form-check-input" id="inTheathers" @bind="inTheathers" />
+        <label class="form-check-label" for="inTheathers">
+            In Theathers
+        </label>
+    </div>
+    <button class="btn btn-primary mr-3" @onclick="SearchMovies" style="width: 100px">Filter</button>
+    <button class="btn btn-danger" @onclick="Clear" style="width: 100px">Clear</button>
+</div>
+    <MoviesList Movies="Movies"></MoviesList>
+    
+@code {
+    string title = "";
+    string selected = "0";
+    public bool upcomingRealeases { get; set; } = false;
+    public bool inTheathers { get; set; } = false;
+
+    private List<Genre> Genres = new();
+    private List<Movie> Movies = new();
+
+    private void TitleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            SearchMovies();
+        }
+    }
+    private void SearchMovies()
+    {
+        Movies = _repo.GetMovies().Where(it => it.Title.Contains(title)).ToList();
+        Console.WriteLine(title);
+        Console.WriteLine(selected);
+        Console.WriteLine(upcomingRealeases);
+        Console.WriteLine(inTheathers);
+    }
+    private void Clear()
+    {
+        Movies = _repo.GetMovies();
+        title = "";
+        selected = "0";
+        upcomingRealeases = false;
+        inTheathers = false;
+    }
+
+    protected override void OnInitialized()
+    {
+        Movies = _repo.GetMovies();
+    }
+}

@@ -1,0 +1,40 @@
+﻿@inject IJSRuntime _jsRuntime
+
+<div class="movie_list_container">
+    <GenericList List="Movies">
+        <ElementTemplate Context="movie">
+            <IndividualMovie Movie="movie" DeleteMovie="DeleteMovie" />
+        </ElementTemplate>
+    </GenericList>
+</div>
+
+
+
+@code {
+    Confirmation confirmation;
+    Movie movieToBeDeleted;
+
+    [Parameter] public List<Movie> Movies { get; set; }
+
+    bool displayButtons = true;
+
+    private async Task DeleteMovie(Movie movie)
+    {
+        movieToBeDeleted = movie;
+        confirmation.Show();
+
+    }
+
+    public void onConfirm()
+    {
+        Movies.Remove(movieToBeDeleted);
+        confirmation.Hide();
+        movieToBeDeleted = null;
+    }
+
+    public void onCancel()
+    {
+        confirmation.Hide();
+        movieToBeDeleted = null;
+    }
+}

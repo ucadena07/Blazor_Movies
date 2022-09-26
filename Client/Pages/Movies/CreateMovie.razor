@@ -1,0 +1,23 @@
+﻿@page "/movies/create"
+@inject NavigationManager _navManager;
+<h3>CreateMovie</h3>
+
+<MovieForm Movie="Movie" OnValidSubmit="SaveMovie" NotSelectedGenres="NotSelectedGenre"/>
+
+@code {
+    private Movie Movie = new();
+    private List<Genre> NotSelectedGenre = new()
+    {
+        new Genre(){Id = 1, Name = "Action"},
+        new Genre(){Id = 2, Name = "Horror"},
+        new Genre(){Id = 3, Name = "Comedy"}
+    };
+
+    private void SaveMovie()
+    {
+        Console.WriteLine(Movie.Title);
+        Console.WriteLine(Movie.ReleaseDate);
+        Console.WriteLine(Movie.Summary);
+        //_navManager.NavigateTo("movie");
+    }
+}

@@ -1,0 +1,21 @@
+﻿@page "/"
+@inject IRepository _repo
+
+
+<div>
+    <h3>Movie</h3>
+    <MoviesList Movies="movies"></MoviesList>
+</div>
+
+@code {
+
+
+    List<Movie> movies = new();
+
+    protected  override void OnInitialized()
+    {
+        movies = _repo.GetMovies();
+    }
+
+
+}
