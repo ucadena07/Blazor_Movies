@@ -90,6 +90,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEN1c3RvbU5vdEZvdW5kLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ucade_lbz6a/Documents/Blazor/BlazorClient/BlazorMovies/BlazorMovies/Client/Shared/CustomTypeAhead.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEN1c3RvbVR5cGVBaGVhZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ucade_lbz6a/Documents/Blazor/BlazorClient/BlazorMovies/BlazorMovies/Client/Shared/DummyTextInput.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXER1bW15VGV4dElucHV0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 

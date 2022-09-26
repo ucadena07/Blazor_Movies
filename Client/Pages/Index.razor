@@ -7,6 +7,12 @@
     <MoviesList Movies="movies"></MoviesList>
 </div>
 
+<CustomTypeAhead SearchMethod="SeachMethod">
+    <ResultTemplate>
+        @context
+    </ResultTemplate>
+</CustomTypeAhead>
+
 @code {
 
 
@@ -17,5 +23,13 @@
         movies = _repo.GetMovies();
     }
 
+    private async Task<IEnumerable<string>> SeachMethod(string searchText)
+    {
+        await Task.Delay(2000);
+        if (searchText == "test") {
+            return Enumerable.Empty<string>();
+        }
+        return new List<string>() { "ulises", "haylee" };
+    }
 
 }
