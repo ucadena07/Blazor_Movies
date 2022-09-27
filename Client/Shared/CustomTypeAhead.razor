@@ -9,7 +9,7 @@
                @bind-value="@SearchText"
                @bind-value:event="oninput"
                @onclick="@ShowSuggestions"
-               @onfocus="onfocusout" />
+               @onfocusout="onfocusout" />
     </div>
     @if (IsSearching)
     {
@@ -19,13 +19,14 @@
             </div>
         </div>
     }
-    else if (ShouldShowSuggestion())
+    else if (ShouldShowSuggestions())
     {
         <div class="blazored-typeahead__results">
             @foreach (var item in Suggestions)
             {
-                <div @key="item" class="blazored-typeahead__result" tabindex="0" @onclick="@(() => SelectSuggestion(item))"
-             @onmouseover="@OnMouseoverSuggestion" @onmouseout="OnMouseoutSuggestion">
+                <div @key="item" class="blazored-typeahead__result"
+             tabindex="0" @onclick="@(() => SelectSuggestion(item))"
+             @onmouseover="OnmouseoverSuggestion" @onmouseout="OnmouseoutSuggestion">
                     @ResultTemplate(item)
                 </div>
             }
@@ -36,10 +37,8 @@
         <div class="blazored-typeahead__results">
             @if (NotFoundTemplate != null)
             {
-                <div>
-                    <div class="blazored-typeahead__notfound">
-                        @NotFoundTemplate
-                    </div>
+                <div class="blazored-typeahead__notfound">
+                    @NotFoundTemplate
                 </div>
             }
             else
@@ -50,7 +49,6 @@
             }
         </div>
     }
-
 </div>
 
 @code {
@@ -127,14 +125,14 @@
 
     private void onfocusout()
     {
-        if(!isMouseInSuggestion)
+        if (!IsMouseInSuggestion)
         {
             IsShowingSuggestions = false;
         }
  
     }
 
-    private bool ShouldShowSuggestion()
+    private bool ShouldShowSuggestions()
     {
         return IsShowingSuggestions && Suggestions.Any();
     }
@@ -150,15 +148,17 @@
         return !Suggestions.Any() && IsShowingSuggestions;
     }
 
-    bool isMouseInSuggestion = false;
+    bool IsMouseInSuggestion = false;
 
-    private void OnMouseoverSuggestion(){
-         isMouseInSuggestion = true;
-    }
 
-    private void OnMouseoutSuggestion()
+    private void OnmouseoverSuggestion()
     {
-         isMouseInSuggestion = false;
+        IsMouseInSuggestion = true;
     }
 
-};
+    private void OnmouseoutSuggestion()
+    {
+        IsMouseInSuggestion = false;
+    }
+
+}

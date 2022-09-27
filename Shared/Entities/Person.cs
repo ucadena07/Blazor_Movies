@@ -13,5 +13,19 @@ namespace BlazorMovies.Shared.Entities
         public string Biography { get; set; }
         public string Picture { get; set; } 
         public DateTime? DateOfBirth { get; set; } = null;
+
+        public override bool Equals(object obj)
+        {
+            if(obj is Person p2)
+            {
+                return Id == p2.Id;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }
