@@ -1,4 +1,7 @@
 using BlazorMovies.Client;
+using BlazorMovies.Client.Helpers;
+using BlazorMovies.Client.Repository;
+using BlazorMovies.Client.Repository.IRepository;
 using BlazorMovies.Client.Services;
 using BlazorMovies.Client.Services.IService;
 using Microsoft.AspNetCore.Components.Web;
@@ -12,5 +15,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddSingleton<SingletonService>();
 builder.Services.AddTransient<TransientService>();
 builder.Services.AddTransient<IRepository, Repository>();
+builder.Services.AddScoped<IHttpService, HttpService>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 
 await builder.Build().RunAsync();

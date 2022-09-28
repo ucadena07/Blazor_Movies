@@ -37,6 +37,6 @@ namespace BlazorMovies.Shared.Entities
         public string Summary { get; set; }
         public bool InTheathers { get; set; }
         public string Trailer { get; set; }
-        public List<MoviesGenre> MoviesGenre { get; set; } = new();
+        public List<MoviesGenre> MoviesGenres { get; set; } = new();
     }
 }
