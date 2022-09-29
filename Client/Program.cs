@@ -17,5 +17,6 @@ builder.Services.AddTransient<TransientService>();
 builder.Services.AddTransient<IRepository, Repository>();
 builder.Services.AddScoped<IHttpService, HttpService>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
 await builder.Build().RunAsync();
