@@ -1,8 +1,9 @@
+using BlazorMovies.Client.Helpers;
 using BlazorMovies.Server;
 using BlazorMovies.Server.Helpers;
 using BlazorMovies.Server.Helpers.Interfaces;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,9 @@ builder.Services.AddRazorPages();
 //Add Db
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IFileAzureService, FileAzureService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 
 

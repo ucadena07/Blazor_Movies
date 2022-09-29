@@ -11,11 +11,15 @@ namespace BlazorMovies.Server.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IFileAzureService _fileAzureService;
-        public PeopleController(ApplicationDbContext context, IFileAzureService fileAzureService)
+        private readonly IFileService _fileService;
+        public PeopleController(ApplicationDbContext context, IFileAzureService fileAzureService, IFileService fileService)
         {
             _context = context;
-            _fileAzureService = fileAzureService;   
+            _fileAzureService = fileAzureService;
+            _fileService = fileService;
         }
+
+        public IFileService FileService { get; }
 
         [HttpPost]
         public async Task<ActionResult<int>> Post(Person person)
@@ -24,6 +28,7 @@ namespace BlazorMovies.Server.Controllers
             {
                 var personPicture = Convert.FromBase64String(person.Picture);
                 //person.Picture = await _fileAzureService.SaveFile(personPicture, ".jpg", "people");
+                person.Picture = await _fileService.SaveFile(personPicture, ".jpg", "people");
             }
 
             _context.Add(person);

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fDR19JFQWye6aTdAgJ32QBftmG7m5A9vGhaMNg92RAI=",
+  "Hash": "YEXBRMv6oWWxE2B03I70MKe/HZP4ge9QRpHpD+blxNQ=",
   "Source": "BlazorMovies.Server",
   "BasePath": "_content/BlazorMovies.Server",
   "Mode": "Default",
@@ -24,6 +24,13 @@
       "Source": "BlazorMovies.Client",
       "ContentRoot": "C:\\Users\\ucade_lbz6a\\Documents\\Blazor\\BlazorClient\\BlazorMovies\\BlazorMovies\\Client\\wwwroot\\",
       "BasePath": "/",
+      "Pattern": "**"
+    },
+    {
+      "Name": "BlazorMovies.Server\\wwwroot",
+      "Source": "BlazorMovies.Server",
+      "ContentRoot": "C:\\Users\\ucade_lbz6a\\Documents\\Blazor\\BlazorClient\\BlazorMovies\\BlazorMovies\\Server\\wwwroot\\",
+      "BasePath": "_content/BlazorMovies.Server",
       "Pattern": "**"
     }
   ],
