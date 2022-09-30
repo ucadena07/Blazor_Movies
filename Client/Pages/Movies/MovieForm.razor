@@ -1,4 +1,4 @@
-﻿<EditForm Model="Movie" OnValidSubmit="OnValidSubmit">
+﻿<EditForm Model="Movie" OnValidSubmit="OnDataAnnotaionValidated">
     <DataAnnotationsValidator />
     <div class="form-group">
         <label>Title:</label>
@@ -51,7 +51,7 @@
                     @person.Name
            </MyResultTemplate>
            <MyListTemplate>
-               @person.Name
+               @person.Name / <input type="text" placeholder="Character" @bind="person.Character"/>
            </MyListTemplate>
          </MultipleSelectorTypeahed>
         </div>
@@ -91,6 +91,16 @@
     {
         await Task.Delay(2000);
         return new List<Person>() { new Person { Id = 1, Name = "Tom Holland", Picture = "https://www.biography.com/.image/t_share/MTQ4MTUwOTQyMDE1OTU2Nzk4/tom-holland-photo-jason-kempin-getty-images-801510482-profile.jpg" }, new Person { Id = 2, Name = "Tom Hanks", Picture = "https://flxt.tmsimg.com/assets/62982_v9_bb.jpg" } };
+    }
+
+    private async Task OnDataAnnotaionValidated()
+    {
+        Movie.MoviesGenres = Selected.Select(it => new MoviesGenre {GenresId = int.Parse(it.Key) }).ToList();
+        Movie.MoviesActors = SelectedActors.Select(it => new MoviesActors { PersonId = it.Id, Character = it.Character }).ToList();
+        if (!string.IsNullOrEmpty(Movie.Poster))
+            imageUrl = null;
+
+        await OnValidSubmit.InvokeAsync(null);
     }
 
 }

@@ -18,5 +18,6 @@ builder.Services.AddTransient<IRepository, Repository>();
 builder.Services.AddScoped<IHttpService, HttpService>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IMovieRepository, MoviesRepository>();
 
 await builder.Build().RunAsync();
