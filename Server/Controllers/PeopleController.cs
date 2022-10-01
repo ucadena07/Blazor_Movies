@@ -2,6 +2,7 @@
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorMovies.Server.Controllers
 {
@@ -34,6 +35,12 @@ namespace BlazorMovies.Server.Controllers
             _context.Add(person);
             await _context.SaveChangesAsync();
             return person.Id;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Person>>> Get()
+        {
+            return await _context.People.ToListAsync();
         }
 
 

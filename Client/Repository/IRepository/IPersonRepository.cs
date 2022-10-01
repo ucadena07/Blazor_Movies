@@ -5,5 +5,6 @@ namespace BlazorMovies.Client.Repository.IRepository
     public interface IPersonRepository
     {
         Task CreatePerson(Person person);
+        Task<List<Person>> GetPeople();
     }
 }

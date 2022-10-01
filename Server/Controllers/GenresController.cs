@@ -1,5 +1,6 @@
 ﻿using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorMovies.Server.Controllers
 {
@@ -19,6 +20,12 @@ namespace BlazorMovies.Server.Controllers
             _context.Add(genre);
             await _context.SaveChangesAsync();
             return genre.Id;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Genre>>> Get()
+        {
+            return await _context.Genres.ToListAsync();
         }
     }
 }

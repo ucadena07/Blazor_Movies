@@ -1,9 +1,47 @@
 ﻿@page "/people"
+@inject IPersonRepository _personRepo
 <h3>People Index</h3>
 <div class="form-group">
     <a href="person/create" class="btn btn-info">New Person</a>
 </div>
+<GenericList List="People">
+    <WholeListTemplate>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in People)
+                {
+                    <tr>
+                        <td>
+                            <a href="" class="btn btn-success">Edit</a>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                        <td>@item.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </WholeListTemplate>
+</GenericList>
 
 @code {
+    List<Person> People = new();
 
+    protected async override Task OnInitializedAsync()
+    {
+        try
+        {
+            People = await _personRepo.GetPeople();
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
+    }
 }

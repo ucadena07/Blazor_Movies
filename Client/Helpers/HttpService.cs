@@ -11,6 +11,23 @@ namespace BlazorMovies.Client.Helpers
         {
             _httpClient = httpClient;
         }
+
+
+        public async Task<HttpResponseWrapper<T>> Get<T>(string url)
+        {
+            var responseHttp = await _httpClient.GetAsync(url);
+
+            if (responseHttp.IsSuccessStatusCode)
+            {
+                var response = await Deserialize<T>(responseHttp, defaultJsonSerializerOptions);
+                return new HttpResponseWrapper<T>(response, true, responseHttp);
+            }
+            else
+            {
+                return new HttpResponseWrapper<T>(default, false, responseHttp);
+            }
+        }
+
         public async Task<HttpResponseWrapper<object>> Post<T>(string url, T data)
         {
             var dataJson = JsonSerializer.Serialize(data);
