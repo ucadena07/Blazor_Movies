@@ -1,7 +1,9 @@
 ﻿using BlazorMovies.Server.Helpers.Interfaces;
+using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorMovies.Server.Controllers
 {
@@ -19,8 +21,6 @@ namespace BlazorMovies.Server.Controllers
             _fileService = fileService;
         }
 
-        public IFileService FileService { get; }
-
         [HttpPost]
         public async Task<ActionResult<int>> Post(Movie movie)
         {
@@ -31,9 +31,43 @@ namespace BlazorMovies.Server.Controllers
                 movie.Poster = await _fileService.SaveFile(porster, ".jpg", "people");
             }
 
+            if(movie.MoviesActors != null)
+            {
+                for (int i = 0; i < movie.MoviesActors.Count; i++)
+                {
+                    movie.MoviesActors[i].Order = i + 1;
+                }
+            }
+
             _context.Add(movie);
             await _context.SaveChangesAsync();
             return movie.Id;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IndexPageDTO>> Get()
+        {
+            var limit = 6;
+
+            var moviesInTheater = await _context.Movies
+                .Where(it => it.InTheathers).Take(limit)
+                .OrderByDescending(it => it.ReleaseDate)
+                .ToListAsync();
+
+            var todaysDate = DateTime.Now;
+
+            var upcomingReleases = await _context.Movies
+              .Where(it => it.ReleaseDate > todaysDate).Take(limit)
+              .OrderByDescending(it => it.ReleaseDate)
+              .ToListAsync();
+
+            var response = new IndexPageDTO
+            {
+                InTheaters = moviesInTheater,
+                UpcomingReleases = upcomingReleases,
+            };
+
+            return response;
         }
 
 
