@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 builder.Services.AddRazorPages();
 
 //Add Db
@@ -18,6 +19,7 @@ opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IFileAzureService, FileAzureService>();
 builder.Services.AddScoped<IFileService, FileService>();
+
 
 
 

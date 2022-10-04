@@ -31,7 +31,7 @@ namespace BlazorMovies.Server.Controllers
                 movie.Poster = await _fileService.SaveFile(porster, ".jpg", "people");
             }
 
-            if(movie.MoviesActors != null)
+            if (movie.MoviesActors != null)
             {
                 for (int i = 0; i < movie.MoviesActors.Count; i++)
                 {
@@ -70,6 +70,35 @@ namespace BlazorMovies.Server.Controllers
             return response;
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DetailsMovieDTO>> Get(int id)
+        {
+            var movie = await _context.Movies.Where(it => it.Id == id)
+                .Include(it => it.MoviesGenres).ThenInclude(it => it.Genre)
+                .Include(it => it.MoviesActors).ThenInclude(it => it.Person)
+                .FirstOrDefaultAsync();
+            if (movie == null)
+            {
+                return NotFound();
+            }
 
+            movie.MoviesActors = movie.MoviesActors.OrderBy(it => it.Order).ToList();
+            var model = new DetailsMovieDTO();
+            model.Movie = movie;
+            model.Genres = movie.MoviesGenres.Select(it => it.Genre).ToList();
+            model.Actors = movie.MoviesActors.Select(it =>
+
+                new Person
+                {
+                    Name = it.Person.Name,
+                    Picture = it.Person.Picture,
+                    Character = it.Character,
+                    Id = it.PersonId
+                }
+            ).ToList();
+
+            return model;
+
+        }
     }
 }
