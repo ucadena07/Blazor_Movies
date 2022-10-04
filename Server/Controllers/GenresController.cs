@@ -11,7 +11,7 @@ namespace BlazorMovies.Server.Controllers
         private readonly ApplicationDbContext _context;
         public GenresController(ApplicationDbContext context)
         {
-            _context = context; 
+            _context = context;
         }
 
         [HttpPost]
@@ -26,6 +26,23 @@ namespace BlazorMovies.Server.Controllers
         public async Task<ActionResult<List<Genre>>> Get()
         {
             return await _context.Genres.ToListAsync();
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<int>> Put(Genre genre)
+        {
+            _context.Attach(genre).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Genre>> Get(int id)
+        {
+            var genre =  await _context.Genres.FirstOrDefaultAsync(it => it.Id == id);
+            if (genre == null)
+                return NotFound();
+            return genre;
         }
     }
 }
