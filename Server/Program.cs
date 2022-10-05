@@ -21,6 +21,8 @@ builder.Services.AddScoped<IFileAzureService, FileAzureService>();
 builder.Services.AddScoped<IFileService, FileService>();
 
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 
 
 var app = builder.Build();

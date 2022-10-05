@@ -7,5 +7,7 @@ namespace BlazorMovies.Client.Repository.IRepository
         Task CreatePerson(Person person);
         Task<List<Person>> GetPeople();
         Task<List<Person>> GetPeopleByName(string name);
+        Task<Person> GetPersonById(int id);
+        Task UpdatePerson(Person person);
     }
 }

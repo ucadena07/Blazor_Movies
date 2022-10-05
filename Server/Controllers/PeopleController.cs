@@ -1,4 +1,5 @@
-﻿using BlazorMovies.Server.Helpers.Interfaces;
+﻿using AutoMapper;
+using BlazorMovies.Server.Helpers.Interfaces;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,13 @@ namespace BlazorMovies.Server.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IFileAzureService _fileAzureService;
         private readonly IFileService _fileService;
-        public PeopleController(ApplicationDbContext context, IFileAzureService fileAzureService, IFileService fileService)
+        private IMapper _mapper;
+        public PeopleController(ApplicationDbContext context, IFileAzureService fileAzureService, IFileService fileService, IMapper mapper)
         {
             _context = context;
             _fileAzureService = fileAzureService;
             _fileService = fileService;
+            _mapper = mapper;
         }
 
         public IFileService FileService { get; }
@@ -49,6 +52,35 @@ namespace BlazorMovies.Server.Controllers
             if(string.IsNullOrEmpty(searchText))
                 return new List<Person>();
             return await _context.People.Where(it => it.Name.Contains(searchText)).Take(5).ToListAsync();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Person>> Get(int id)
+        {
+            var person = await _context.People.FirstOrDefaultAsync(it => it.Id == id);
+            if (person == null)
+                return NotFound();
+            return person;
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<int>> Put(Person person)
+        {
+            var personDb = await _context.People.FirstOrDefaultAsync(it => it.Id == person.Id);
+
+            if (personDb == null)
+                return NotFound();
+
+            personDb = _mapper.Map(person, personDb);
+
+            if (!string.IsNullOrEmpty(person.Picture))
+            {
+                var personPicture = Convert.FromBase64String(person.Picture);
+                personDb.Picture = await _fileService.EditFile(personPicture,"jpg","people",personDb.Picture);
+            }
+
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
 

@@ -41,5 +41,21 @@ namespace BlazorMovies.Client.Repository
             }
             return response.Response;
         }
+
+        public async Task UpdatePerson(Person person)
+        {
+            var response = await _httpService.Put(url, person);
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
+
+
+        public async Task<Person> GetPersonById(int id)
+        {
+            return await _httpService.GetHelper<Person>($"{url}/{id}");
+
+        }
     }
 }

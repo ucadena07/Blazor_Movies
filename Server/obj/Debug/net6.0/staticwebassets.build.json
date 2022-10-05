@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "+DS69bOQ3q/t2UAs9a0TW30ZRU6nOKFpromr8ZpBp4g=",
+  "Hash": "TZx4Qqr15RWokx+t0MMe+9mifWaHngRJfiz32GJ+MVU=",
   "Source": "BlazorMovies.Server",
   "BasePath": "_content/BlazorMovies.Server",
   "Mode": "Default",
@@ -7278,6 +7278,23 @@
       "OriginalItemSpec": "wwwroot\\js\\Utilities.js"
     },
     {
+      "Identity": "C:\\Users\\ucade_lbz6a\\Documents\\Blazor\\BlazorClient\\BlazorMovies\\BlazorMovies\\Server\\wwwroot\\people\\12a3615c-b7a1-4e8d-8eb5-622ffcceee71.jpg",
+      "SourceId": "BlazorMovies.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ucade_lbz6a\\Documents\\Blazor\\BlazorClient\\BlazorMovies\\BlazorMovies\\Server\\wwwroot\\",
+      "BasePath": "_content/BlazorMovies.Server",
+      "RelativePath": "people/12a3615c-b7a1-4e8d-8eb5-622ffcceee71.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\people\\12a3615c-b7a1-4e8d-8eb5-622ffcceee71.jpg"
+    },
+    {
       "Identity": "C:\\Users\\ucade_lbz6a\\Documents\\Blazor\\BlazorClient\\BlazorMovies\\BlazorMovies\\Server\\wwwroot\\people\\2effdab9-6bf7-442c-9512-0e955531b430..jpg",
       "SourceId": "BlazorMovies.Server",
       "SourceType": "Discovered",
@@ -7293,6 +7310,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\people\\2effdab9-6bf7-442c-9512-0e955531b430..jpg"
+    },
+    {
+      "Identity": "C:\\Users\\ucade_lbz6a\\Documents\\Blazor\\BlazorClient\\BlazorMovies\\BlazorMovies\\Server\\wwwroot\\people\\5acd020d-1a7e-40f3-8e64-a31285f4700d.jpg",
+      "SourceId": "BlazorMovies.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ucade_lbz6a\\Documents\\Blazor\\BlazorClient\\BlazorMovies\\BlazorMovies\\Server\\wwwroot\\",
+      "BasePath": "_content/BlazorMovies.Server",
+      "RelativePath": "people/5acd020d-1a7e-40f3-8e64-a31285f4700d.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\people\\5acd020d-1a7e-40f3-8e64-a31285f4700d.jpg"
     },
     {
       "Identity": "C:\\Users\\ucade_lbz6a\\Documents\\Blazor\\BlazorClient\\BlazorMovies\\BlazorMovies\\Server\\wwwroot\\people\\64692a54-6707-477c-945d-11d59db9b033..jpg",

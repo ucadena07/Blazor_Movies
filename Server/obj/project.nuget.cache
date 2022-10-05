@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Ge4amZJf5da2kCGmkQ0u00lBahTvbRB54qwiow4KtEKTPJglEvxUAJMEyTFr1X0T/I/5f+CVWeJiNpyXzPoIsQ==",
+  "dgSpecHash": "a93uvfpQdgftPeMjb0+Z9eEgO87kmVwj1iB3aZc5ZTYy7VO9+i0bko3K6t+NUH8gGY86WhPdrKgZjkW8wcNP5A==",
   "success": true,
   "projectFilePath": "C:\\Users\\ucade_lbz6a\\Documents\\Blazor\\BlazorClient\\BlazorMovies\\BlazorMovies\\Server\\BlazorMovies.Server.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ucade_lbz6a\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\ucade_lbz6a\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\ucade_lbz6a\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\ucade_lbz6a\\.nuget\\packages\\azure.storage.blobs\\12.13.1\\azure.storage.blobs.12.13.1.nupkg.sha512",
     "C:\\Users\\ucade_lbz6a\\.nuget\\packages\\azure.storage.common\\12.12.0\\azure.storage.common.12.12.0.nupkg.sha512",
