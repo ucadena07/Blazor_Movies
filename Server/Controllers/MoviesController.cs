@@ -100,5 +100,26 @@ namespace BlazorMovies.Server.Controllers
             return model;
 
         }
+
+        [HttpGet("update/{id}")]
+        public async Task<ActionResult<MovieUpdateDto>> PutGet(int id)
+        {
+            var movieActionResult = await Get(id);
+            if (movieActionResult.Result is NotFoundResult)
+                return NotFound();
+
+            var movieDetailsDto = movieActionResult.Value;
+            var selectedGenresIds = movieDetailsDto.Genres.Select(it => it.Id).ToList();
+            var notSelectedGenres = await _context.Genres.Where(it => !selectedGenresIds.Contains(it.Id)).ToListAsync();
+
+            var model = new MovieUpdateDto();
+            model.Movie = movieDetailsDto.Movie;
+            model.SelectedGenres = movieDetailsDto.Genres;
+            model.NotSelectedGenres = notSelectedGenres;
+            model.Actors = movieDetailsDto.Actors;
+
+            return model;
+
+        }
     }
 }

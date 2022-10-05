@@ -3,9 +3,9 @@
         <img src="@Movie.Poster" alt="Poster" class="movie_poster" />
     </a>
     <p>@Movie.TitleBrief</p>
-    <button type="button" class="btn btn-primary" @onclick="@(() => DeleteMovie.InvokeAsync(Movie))">
+    <a class="btn btn-primary"  href="movies/edit/@Movie.Id">
         EDIT
-    </button>
+    </a>
     <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMovie.InvokeAsync(Movie))">
         DELETE
     </button>
