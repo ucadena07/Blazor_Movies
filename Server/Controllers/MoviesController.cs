@@ -1,4 +1,5 @@
-﻿using BlazorMovies.Server.Helpers.Interfaces;
+﻿using AutoMapper;
+using BlazorMovies.Server.Helpers.Interfaces;
 using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Http;
@@ -14,11 +15,13 @@ namespace BlazorMovies.Server.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IFileAzureService _fileAzureService;
         private readonly IFileService _fileService;
-        public MoviesController(ApplicationDbContext context, IFileAzureService fileAzureService, IFileService fileService)
+        private IMapper _mapper;
+        public MoviesController(ApplicationDbContext context, IFileAzureService fileAzureService, IFileService fileService, IMapper mapper)
         {
             _context = context;
             _fileAzureService = fileAzureService;
             _fileService = fileService;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -121,5 +124,40 @@ namespace BlazorMovies.Server.Controllers
             return model;
 
         }
+
+        [HttpPut]
+        public async Task<ActionResult<int>> Put(Movie movie)
+        {
+            var movieDb = await _context.Movies.FirstOrDefaultAsync(it => it.Id == movie.Id);
+
+            if (movieDb == null)
+                return NotFound();
+
+            movieDb = _mapper.Map(movie, movieDb);
+
+            if (!string.IsNullOrEmpty(movie.Poster))
+            {
+                var poster = Convert.FromBase64String(movie.Poster);
+                movieDb.Poster = await _fileService.EditFile(poster, "jpg", "movies", movie.Poster);
+            }
+
+
+            await _context.Database.ExecuteSqlInterpolatedAsync($"delete from MoviesActors where MovieId = {movie.Id}; delete from MoviesGenres where MovieId = {movie.Id}");
+
+            if (movie.MoviesActors != null)
+            {
+                for (int i = 0; i < movie.MoviesActors.Count; i++)
+                {
+                    movie.MoviesActors[i].Order = i + 1;
+                }
+            }
+
+            movieDb.MoviesActors = movie.MoviesActors;
+            movieDb.MoviesGenres = movie.MoviesGenres;
+
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
     }
 }

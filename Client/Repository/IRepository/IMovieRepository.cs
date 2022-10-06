@@ -8,5 +8,7 @@ namespace BlazorMovies.Client.Repository.IRepository
         Task<int> CreateMovie(Movie movie);
         Task<DetailsMovieDTO> GetDetailsDTO(int id);
         Task<IndexPageDTO> GetIndexPageDto();
+        Task<MovieUpdateDto> GetMovieForUpdate(int id);
+        Task UpdateMovie(Movie movie);
     }
 }

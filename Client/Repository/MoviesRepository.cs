@@ -34,6 +34,20 @@ namespace BlazorMovies.Client.Repository
             return await _httpService.GetHelper<DetailsMovieDTO>($"{url}/{id}");
         }
 
+        public async Task<MovieUpdateDto> GetMovieForUpdate(int id)
+        {
+            return await _httpService.GetHelper<MovieUpdateDto>($"{url}/update/{id}");
+        }
+
+
+        public async Task UpdateMovie(Movie movie)
+        {
+            var response = await _httpService.Put(url, movie);
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
         //private async Task<T> Get<T>(string url)
         //{
         //    var response = await _httpService.Get<T>(url);

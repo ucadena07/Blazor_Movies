@@ -1,32 +1,30 @@
 ﻿@page "/movies/edit/{MovieId:int}"
+@inject IMovieRepository _movieRepo
+@inject NavigationManager _navigationManager;
+@if(Movie != null){
+    <MovieForm Movie="Movie" OnValidSubmit="Edit" NotSelectedGenres="NotSelectedGenre" SelectedGenres="SelectedGenre" SelectedActors="SelectedActors" />
+}
 
-<MovieForm Movie="Movie" OnValidSubmit="Edit" NotSelectedGenres="NotSelectedGenre" SelectedGenres="SelectedGenre"/>
 
 @code {
     [Parameter] public int MovieId { get; set; }
-    private Movie Movie = new();
-    private List<Genre> NotSelectedGenre = new()
-    {
-        new Genre(){Id = 2, Name = "Horror"},
-        new Genre(){Id = 3, Name = "Comedy"}
-    };
+    private Movie Movie;
+    private List<Genre> NotSelectedGenre;
+    private List<Genre> SelectedGenre;
+    private List<Person> SelectedActors;
 
-    private List<Genre> SelectedGenre = new()
+    protected async override Task OnInitializedAsync()
     {
-        new Genre(){Id = 1, Name = "Action"},
-    };
+        var model = await _movieRepo.GetMovieForUpdate(MovieId);
+        Movie = model.Movie;
+        SelectedActors = model.Actors;
+        SelectedGenre = model.SelectedGenres;
+        NotSelectedGenre = model.NotSelectedGenres;
 
-    protected override void OnInitialized()
-    {
-        Movie = new()
-            {
-                Id = MovieId,
-                Title = "My Movie"
-            };
     }
-    private void Edit()
+    private async Task Edit()
     {
-
-        //_navManager.NavigateTo("movie");
+        await _movieRepo.UpdateMovie(Movie);
+        _navigationManager.NavigateTo($"movie/{MovieId}/{Movie.Title.Replace(" ", "-")}");
     }
 }
