@@ -39,6 +39,15 @@ namespace BlazorMovies.Client.Repository
             return await _httpService.GetHelper<MovieUpdateDto>($"{url}/update/{id}");
         }
 
+        public async Task DeleteMovie(int Id)
+        {
+            var response = await _httpService.Delete<Movie>($"{url}/{Id}");
+            if (!response.Success)
+            {
+                throw new ApplicationException(await response.GetBody());
+            }
+        }
+
 
         public async Task UpdateMovie(Movie movie)
         {

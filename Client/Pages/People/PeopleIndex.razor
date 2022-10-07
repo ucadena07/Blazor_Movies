@@ -19,7 +19,7 @@
                     <tr>
                         <td>
                             <a href="/person/edit/@item.Id" class="btn btn-success">Edit</a>
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-danger" @onclick="@(() => DeletePerson(item.Id))">Delete</button>
                         </td>
                         <td>@item.Name</td>
                     </tr>
@@ -43,5 +43,11 @@
 
             throw;
         }
+    }
+
+    public async Task DeletePerson(int id)
+    {
+        await _personRepo.DeletePerson(id);
+        People = await _personRepo.GetPeople();
     }
 }

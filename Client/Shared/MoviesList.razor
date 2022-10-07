@@ -1,4 +1,5 @@
 ﻿@inject IJSRuntime _jsRuntime
+@inject IMovieRepository _movieRepo
 
 <div class="movie_list_container">
     <GenericList List="Movies">
@@ -8,7 +9,9 @@
     </GenericList>
 </div>
 
-
+<Confirmation @ref="confirmation" onCancel="onCancel" onConfirm="onConfirm">
+    <div>Are you sure?</div>
+</Confirmation>
 
 @code {
     Confirmation confirmation;
@@ -25,8 +28,10 @@
 
     }
 
-    public void onConfirm()
+    public async Task onConfirm()
     {
+
+        await _movieRepo.DeleteMovie(movieToBeDeleted.Id);
         Movies.Remove(movieToBeDeleted);
         confirmation.Hide();
         movieToBeDeleted = null;
