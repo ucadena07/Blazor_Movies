@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using BlazorMovies.Server.Helpers;
 using BlazorMovies.Server.Helpers.Interfaces;
+using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,9 +43,14 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Person>>> Get()
+        public async Task<ActionResult<List<Person>>> Get([FromQuery] PaginationDto paginationDto)
         {
-            return await _context.People.ToListAsync();
+
+            var quaryable = _context.People.AsQueryable();
+            await HttpContext.InsertPaginationParametersInResponse(quaryable, paginationDto.RecordsPerPage);
+
+
+            return await quaryable.Paginate(paginationDto).ToListAsync();
         }
 
         [HttpGet("search/{searchText}")]

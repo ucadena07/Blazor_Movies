@@ -31,12 +31,16 @@
 
 @code {
     List<Person> People = new();
+    PaginationDto paginationDto = new(){
+        RecordsPerPage = 1
+    };
 
     protected async override Task OnInitializedAsync()
     {
         try
         {
-            People = await _personRepo.GetPeople();
+            var resp = await _personRepo.GetPeople(paginationDto);
+            People = resp.Response;
         }
         catch (Exception ex)
         {
@@ -48,6 +52,7 @@
     public async Task DeletePerson(int id)
     {
         await _personRepo.DeletePerson(id);
-        People = await _personRepo.GetPeople();
+        var resp = await _personRepo.GetPeople(paginationDto);
+        People = resp.Response;
     }
 }

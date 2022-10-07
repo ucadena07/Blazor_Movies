@@ -1,4 +1,5 @@
-﻿using BlazorMovies.Shared.Entities;
+﻿using BlazorMovies.Shared.Dtos;
+using BlazorMovies.Shared.Entities;
 
 namespace BlazorMovies.Client.Repository.IRepository
 {
@@ -6,7 +7,7 @@ namespace BlazorMovies.Client.Repository.IRepository
     {
         Task CreatePerson(Person person);
         Task DeletePerson(int Id);
-        Task<List<Person>> GetPeople();
+        Task<PaginatedResponse<List<Person>>> GetPeople(PaginationDto paginationDto);
         Task<List<Person>> GetPeopleByName(string name);
         Task<Person> GetPersonById(int id);
         Task UpdatePerson(Person person);

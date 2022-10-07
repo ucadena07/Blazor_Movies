@@ -1,5 +1,6 @@
 ﻿using BlazorMovies.Client.Helpers;
 using BlazorMovies.Client.Repository.IRepository;
+using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
 
 namespace BlazorMovies.Client.Repository
@@ -13,14 +14,9 @@ namespace BlazorMovies.Client.Repository
             _httpService = httpService;
         }
 
-        public async Task<List<Person>> GetPeople()
+        public async Task<PaginatedResponse<List<Person>>> GetPeople(PaginationDto paginationDto)
         {
-            var response = await _httpService.Get<List<Person>>(url);
-            if (!response.Success)
-            {
-                throw new ApplicationException(await response.GetBody());
-            }
-            return response.Response;
+            return await _httpService.GetHelper<List<Person>>(url, paginationDto);
 
         }
         public async Task CreatePerson(Person person)
