@@ -4,14 +4,21 @@
 
 <Router AppAssembly="@typeof(App).Assembly" OnNavigateAsync="OnNavigateAsync">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <Authorizing>
+                Checking creds...
+            </Authorizing>
+        </AuthorizeRouteView>
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <CustomNotFound/>
-        </LayoutView>
+        <CascadingAuthenticationState>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <CustomNotFound />
+            </LayoutView>
+        </CascadingAuthenticationState>
+
     </NotFound>
 </Router>
 
@@ -19,6 +26,7 @@
     private List<Assembly> LazyLoadedAssemblies = new List<Assembly>();
     private async Task OnNavigateAsync(NavigationContext args)
     {
+
 
         if (args.Path.EndsWith("counter"))
         {
