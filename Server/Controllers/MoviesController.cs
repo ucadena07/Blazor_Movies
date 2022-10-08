@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BlazorMovies.Server.Helpers;
 using BlazorMovies.Server.Helpers.Interfaces;
 using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
@@ -169,6 +170,31 @@ namespace BlazorMovies.Server.Controllers
             _context.Remove(movie);
             await _context.SaveChangesAsync();
             return NoContent();
+        }
+
+        [HttpPost("filter")]
+        public async Task<ActionResult<List<Movie>>> Filter(FilterMovieDto filterMovieDto)
+        {
+            var moviesQueryable = _context.Movies.AsQueryable();
+            if (!string.IsNullOrEmpty(filterMovieDto.Title))
+                moviesQueryable = moviesQueryable.Where(it => it.Title.Contains(filterMovieDto.Title));
+
+            if(filterMovieDto.InTheaters)
+                moviesQueryable = moviesQueryable.Where(it => it.InTheathers);
+
+            if (filterMovieDto.UpcomingReleases)
+                moviesQueryable = moviesQueryable.Where(it => it.ReleaseDate > DateTime.Today);
+
+            if (filterMovieDto.GenreId != 0)
+                moviesQueryable = moviesQueryable.Where(it => it.MoviesGenres.Select(it => it.GenreId).Contains(filterMovieDto.GenreId));
+
+            await HttpContext.InsertPaginationParametersInResponse(moviesQueryable, filterMovieDto.RecordsPerPage);
+
+            var movies = await moviesQueryable.Paginate(filterMovieDto.Pagination).ToListAsync();
+
+            return movies;
+
+
         }
 
     }

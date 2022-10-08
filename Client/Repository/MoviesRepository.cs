@@ -3,6 +3,7 @@ using BlazorMovies.Client.Pages.Movies;
 using BlazorMovies.Client.Repository.IRepository;
 using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
+using System.Text.RegularExpressions;
 
 namespace BlazorMovies.Client.Repository
 {
@@ -56,6 +57,18 @@ namespace BlazorMovies.Client.Repository
             {
                 throw new ApplicationException(await response.GetBody());
             }
+        }
+
+        public async Task<PaginatedResponse<List<Movie>>> GetMoviesFiltered(FilterMovieDto filterMovieDto)
+        {
+            var httpResp = await _httpService.Post<FilterMovieDto,List<Movie>>($"{url}/filter",filterMovieDto);
+            var totalAmountPages = int.Parse(httpResp.HttpResponseMessage.Headers.GetValues("totalAmountPages").FirstOrDefault());
+            var paginatedResp = new PaginatedResponse<List<Movie>>()
+            {
+                Response = httpResp.Response,
+                TotalAmountPages = totalAmountPages
+            };
+            return paginatedResp;
         }
         //private async Task<T> Get<T>(string url)
         //{
