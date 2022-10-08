@@ -345,4 +345,8 @@ Server/obj/
 Server/bin/
 Client/obj/
 Client/bin/
+BlazorMovies/Server/obj/
+BlazorMovies/Server/bin/
+BlazorMovies/Client/obj/
+BlazorMovies/Client/bin/
 

@@ -126,6 +126,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE11dGlwbGVTZWxlY3Rvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ucade_lbz6a/Documents/Blazor/BlazorClient/BlazorMovies/BlazorMovies/Client/Shared/Pagination.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBhZ2luYXRpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ucade_lbz6a/Documents/Blazor/BlazorClient/BlazorMovies/BlazorMovies/Client/Shared/RenderMarkdown.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFJlbmRlck1hcmtkb3duLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
