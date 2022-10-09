@@ -18,26 +18,43 @@ using BlazorMovies.Client.Services;
 using BlazorMovies.Client.Services.IService;
 using BlazorMovies.Client.Helpers;
 using MathNet.Numerics.Statistics;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BlazorMovies.Client.Pages
 {
     public partial class Counter
     {
+        [CascadingParameter] private Task<AuthenticationState> AuthenticationState { get; set; }
+
         private int currentCount = 0;
         IJSObjectReference module;
 
 
         [JSInvokable]
-        public async void IncrementCount()
+        public async Task IncrementCount()
         {
-            var array = new double[] { 1, 2, 3, 4, 5, 6 };
-            var max = array.Maximum();
-            var min = array.Minimum();  
+
+            var authState = await AuthenticationState;
+            var user = authState.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                currentCount++;
+            }
+            else
+            {
+                currentCount--;
+            }
 
 
-            module = await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/CounterJs.js");
-            await module.InvokeVoidAsync("displayAlert", $"Max is {max}, min {min}");
-            currentCount++;
+            //var array = new double[] { 1, 2, 3, 4, 5, 6 };
+            //var max = array.Maximum();
+            //var min = array.Minimum();  
+
+
+            //module = await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "./js/CounterJs.js");
+            //await module.InvokeVoidAsync("displayAlert", $"Max is {max}, min {min}");
+            //currentCount++;
         }
 
         protected override void OnInitialized()
