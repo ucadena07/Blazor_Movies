@@ -1,6 +1,7 @@
 ﻿@page "/movies/edit/{MovieId:int}"
 @inject IMovieRepository _movieRepo
 @inject NavigationManager _navigationManager;
+@attribute [Authorize]
 @if(Movie != null){
     <MovieForm Movie="Movie" OnValidSubmit="Edit" NotSelectedGenres="NotSelectedGenre" SelectedGenres="SelectedGenre" SelectedActors="SelectedActors" />
 }

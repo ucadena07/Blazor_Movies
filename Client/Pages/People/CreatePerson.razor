@@ -1,6 +1,7 @@
 ﻿@page "/person/create"
 @inject IPersonRepository _personRepo
 @inject NavigationManager _navigationManager;
+@attribute [Authorize]
 
 <h3>CreatePerson</h3>
 <PersonForm Person="Person" OnValidSubmit="Create"/>

@@ -8,6 +8,9 @@
             <Authorizing>
                 Checking creds...
             </Authorizing>
+            <NotAuthorized>
+                <text>Custom not authorized</text>
+            </NotAuthorized>
         </AuthorizeRouteView>
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
@@ -30,7 +33,7 @@
 
         if (args.Path.EndsWith("counter"))
         {
-            var assemblies = await _lazyLoader.LoadAssembliesAsync(new List<string> { "MathNet.Numerics.dll"});
+            var assemblies = await _lazyLoader.LoadAssembliesAsync(new List<string> { "MathNet.Numerics.dll" });
             LazyLoadedAssemblies.AddRange(assemblies);
         }
 

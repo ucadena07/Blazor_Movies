@@ -1,5 +1,7 @@
 ﻿@page "/people"
 @inject IPersonRepository _personRepo
+@attribute [Authorize]
+
 <h3>People Index</h3>
 <div class="form-group">
     <a href="person/create" class="btn btn-info">New Person</a>

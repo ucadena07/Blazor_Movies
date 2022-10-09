@@ -2,6 +2,7 @@
 @inject NavigationManager _navManager;
 @inject IMovieRepository _moviesRepo
 @inject IGenreRepository _genreRepo
+@attribute [Authorize]
 <h3>CreateMovie</h3>
 
 @if(NotSelectedGenre != null){

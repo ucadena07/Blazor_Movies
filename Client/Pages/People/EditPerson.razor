@@ -1,6 +1,7 @@
 ﻿@page "/person/edit/{PersonId:int}"
 @inject IPersonRepository _personRepo
 @inject NavigationManager _navigationManager;
+@attribute [Authorize]
 
 @if (Person != null)
 {
