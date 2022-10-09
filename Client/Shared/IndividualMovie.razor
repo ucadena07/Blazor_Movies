@@ -3,12 +3,18 @@
         <img src="@Movie.Poster" alt="Poster" class="movie_poster" />
     </a>
     <p>@Movie.TitleBrief</p>
-    <a class="btn btn-primary"  href="movies/edit/@Movie.Id">
-        EDIT
-    </a>
-    <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMovie.InvokeAsync(Movie))">
-        DELETE
-    </button>
+
+    <AuthorizeView >
+        <Authorized>
+            <a class="btn btn-primary" href="movies/edit/@Movie.Id">
+                EDIT
+            </a>
+            <button type="button" class="btn btn-danger" @onclick="@(() => DeleteMovie.InvokeAsync(Movie))">
+                DELETE
+            </button>
+        </Authorized>
+    </AuthorizeView>
+
 </div>
 
 
@@ -21,7 +27,7 @@
 
     protected override void OnInitialized()
     {
-        movieUrl = $"movie/{Movie.Id}/{Movie.Title?.Replace(" ","-")}";
+        movieUrl = $"movie/{Movie.Id}/{Movie.Title?.Replace(" ", "-")}";
     }
 
 
