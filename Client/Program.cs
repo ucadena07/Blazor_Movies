@@ -23,5 +23,12 @@ builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IMovieRepository, MoviesRepository>();
 builder.Services.AddAuthorizationCore();
 
-builder.Services.AddScoped<AuthenticationStateProvider, DummyAuthenticationStateProvider>();
+builder.Services.AddScoped<JwtAuthenticationStateProvider>();
+//builder.Services.AddScoped<AuthenticationStateProvider, DummyAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticationStateProvider>(
+    provider => provider.GetRequiredService<JwtAuthenticationStateProvider>());
+
+builder.Services.AddScoped<ILoginService, JwtAuthenticationStateProvider>(   
+    provider => provider.GetRequiredService<JwtAuthenticationStateProvider>());
+
 await builder.Build().RunAsync();
