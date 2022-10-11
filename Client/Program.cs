@@ -21,6 +21,7 @@ builder.Services.AddScoped<IHttpService, HttpService>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IMovieRepository, MoviesRepository>();
+builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
 builder.Services.AddAuthorizationCore();
 
 builder.Services.AddScoped<JwtAuthenticationStateProvider>();

@@ -3,6 +3,8 @@ using BlazorMovies.Server.Helpers;
 using BlazorMovies.Server.Helpers.Interfaces;
 using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +13,14 @@ namespace BlazorMovies.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PeopleController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IFileAzureService _fileAzureService;
         private readonly IFileService _fileService;
         private IMapper _mapper;
+
         public PeopleController(ApplicationDbContext context, IFileAzureService fileAzureService, IFileService fileService, IMapper mapper)
         {
             _context = context;
@@ -27,7 +31,7 @@ namespace BlazorMovies.Server.Controllers
 
         public IFileService FileService { get; }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<ActionResult<int>> Post(Person person)
         {
             if (!string.IsNullOrEmpty(person.Picture))

@@ -24,7 +24,7 @@ namespace BlazorMovies.Server.Controllers
             _config = config;
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<ActionResult<UserToken>> CreateUser([FromBody] UserInfo model)
         {
             var user = new IdentityUser { UserName = model.Email, Email = model.Email };
@@ -42,7 +42,7 @@ namespace BlazorMovies.Server.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost("Login")]
         public async Task<ActionResult<UserToken>> Login([FromBody] UserInfo userInfo)
         {
             var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password, isPersistent: false, lockoutOnFailure: false);

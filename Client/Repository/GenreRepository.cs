@@ -4,6 +4,7 @@ using BlazorMovies.Shared.Entities;
 
 namespace BlazorMovies.Client.Repository
 {
+
     public class GenreRepository : IGenreRepository
     {
         private readonly IHttpService _httpService;

@@ -13,6 +13,7 @@ namespace BlazorMovies.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class MoviesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -51,7 +52,7 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [AllowAnonymous]
         public async Task<ActionResult<IndexPageDTO>> Get()
         {
             var limit = 6;
@@ -78,6 +79,7 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<DetailsMovieDTO>> Get(int id)
         {
             var movie = await _context.Movies.Where(it => it.Id == id)
@@ -176,6 +178,7 @@ namespace BlazorMovies.Server.Controllers
         }
 
         [HttpPost("filter")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<Movie>>> Filter(FilterMovieDto filterMovieDto)
         {
             var moviesQueryable = _context.Movies.AsQueryable();
