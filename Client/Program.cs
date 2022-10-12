@@ -24,6 +24,7 @@ builder.Services.AddScoped<IMovieRepository, MoviesRepository>();
 builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IDisplayMessage, DisplayMessage>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddAuthorizationCore();
 
 builder.Services.AddScoped<JwtAuthenticationStateProvider>();
