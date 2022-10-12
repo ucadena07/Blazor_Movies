@@ -1,4 +1,4 @@
-﻿@*@inject IDisplayMessage displayMessage*@
+﻿@inject IDisplayMessage displayMessage
 
 @for (int i = 1; i <= MaximumRating; i++)
 {
@@ -24,11 +24,11 @@
         var authState = await AuthenticationState;
         var user = authState.User;
 
-        //if (!user.Identity.IsAuthenticated)
-        //{
-        //    await displayMessage.DisplayErrorMessage("You must login in order to vote");
-        //    return;
-        //}
+        if (!user.Identity.IsAuthenticated)
+        {
+            await displayMessage.DisplayErrorMessage("You must login in order to vote");
+            return;
+        }
 
         SelectedRating = starNumber;
         voted = true;
