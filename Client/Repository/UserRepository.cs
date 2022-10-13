@@ -8,7 +8,7 @@ namespace BlazorMovies.Client.Repository
     public class UserRepository : IUserRepository
     {
         private readonly IHttpService _httpService;
-        private string url = "api/Users";
+        private string url = "api/users";
         public UserRepository(IHttpService httpService)
         {
             _httpService = httpService;
@@ -28,7 +28,7 @@ namespace BlazorMovies.Client.Repository
 
         public async Task AssignRole(EditRoleDto editRole)
         {
-            var response = await _httpService.Put($"{url}/assignRole", editRole);
+            var response = await _httpService.Post($"{url}/assignRole", editRole);
             if (!response.Success)
             {
                 throw new ApplicationException(await response.GetBody());
@@ -37,7 +37,7 @@ namespace BlazorMovies.Client.Repository
 
         public async Task RemoveRole(EditRoleDto editRole)
         {
-            var response = await _httpService.Put($"{url}/removeRole", editRole);
+            var response = await _httpService.Post($"{url}/removeRole", editRole);
             if (!response.Success)
             {
                 throw new ApplicationException(await response.GetBody());

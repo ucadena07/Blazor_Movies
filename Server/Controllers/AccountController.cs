@@ -32,7 +32,7 @@ namespace BlazorMovies.Server.Controllers
 
             if (result.Succeeded)
             {
-                return BuildToken(model);
+                return await BuildToken(model);
             }
             else
             {
@@ -47,18 +47,23 @@ namespace BlazorMovies.Server.Controllers
         {
             var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
-                return BuildToken(userInfo);
+                return await BuildToken(userInfo);
             else
                 return BadRequest("Invalid login attemp");
         }
 
-        private UserToken BuildToken(UserInfo userInfo)
+        private async Task<UserToken> BuildToken(UserInfo userInfo)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, userInfo.Email),
                 new Claim(ClaimTypes.Email, userInfo.Email),
             };
+
+            var identityUser = await _userManager.FindByEmailAsync(userInfo.Email);
+            var claimsDb = await _userManager.GetClaimsAsync(identityUser);
+
+            claims.AddRange(claimsDb);
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["jwt:key"]));
             var creds = new SigningCredentials(key,SecurityAlgorithms.HmacSha256);

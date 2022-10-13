@@ -2,6 +2,7 @@
 @inject IUserRepository _usersRepo
 
 <Pagination CurrentPage="@paginationDto.Page" TotalAmountPages="totalAmountOfPages" SelectedPage="SelectedPage"></Pagination>
+<h3>Users List</h3>
 <GenericList List="UserList">
     <WholeListTemplate>
         <table class="table">
@@ -35,7 +36,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-
+        await LoadUsers();
     }
 
     private async Task LoadUsers(){
