@@ -25,6 +25,7 @@ builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IDisplayMessage, DisplayMessage>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<TokenRenewer>();
 builder.Services.AddAuthorizationCore();
 
 builder.Services.AddScoped<JwtAuthenticationStateProvider>();

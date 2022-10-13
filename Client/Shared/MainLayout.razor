@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject BlazorMovies.Client.Auth.TokenRenewer tokenRenewer
 
 <div class="page">
     <div class="sidebar">
@@ -22,5 +23,9 @@
 
 @code {
     //private AppState AppState = new AppState { Color = "blue", Size = "8px" };
+    protected override void OnInitialized()
+    {
+        tokenRenewer.Initiate();
+    }
 
 }

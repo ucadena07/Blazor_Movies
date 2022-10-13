@@ -8,5 +8,6 @@ namespace BlazorMovies.Client.Repository.IRepository
         Task<List<RoleDto>> GetRoles();
         Task<PaginatedResponse<List<UserDto>>> GetUsers(PaginationDto paginationDto);
         Task RemoveRole(EditRoleDto editRole);
+ 
     }
 }

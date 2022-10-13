@@ -31,7 +31,7 @@
     private async Task CreateUser()
     {
         var userToken = await _accountRepo.Register(userInfo);
-        await _loginService.Login(userToken.Token);
+        await _loginService.Login(userToken);
         _navManager.NavigateTo("");
     }
 }

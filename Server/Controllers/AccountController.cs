@@ -1,4 +1,6 @@
 ﻿using BlazorMovies.Shared.Dtos;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +54,18 @@ namespace BlazorMovies.Server.Controllers
                 return BadRequest("Invalid login attemp");
         }
 
+        [HttpGet("RenewToken")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult<UserToken>> Renew()
+        {
+            var userInfo = new UserInfo()
+            {
+                Email = HttpContext.User.Identity.Name,
+            };
+
+            return await BuildToken(userInfo);
+        }
+
         private async Task<UserToken> BuildToken(UserInfo userInfo)
         {
             var claims = new List<Claim>
@@ -68,7 +82,7 @@ namespace BlazorMovies.Server.Controllers
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["jwt:key"]));
             var creds = new SigningCredentials(key,SecurityAlgorithms.HmacSha256);
 
-            var expiration = DateTime.UtcNow.AddYears(1);
+            var expiration = DateTime.UtcNow.AddMinutes(5);
 
             JwtSecurityToken token = new(
                 issuer: null,

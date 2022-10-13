@@ -1,6 +1,7 @@
 ﻿using BlazorMovies.Client.Helpers;
 using BlazorMovies.Client.Repository.IRepository;
 using BlazorMovies.Shared.Dtos;
+using System;
 
 namespace BlazorMovies.Client.Repository
 {
@@ -35,6 +36,17 @@ namespace BlazorMovies.Client.Repository
             }
 
             return httpResponse.Response;
+        }
+
+        public async Task<UserToken> RenewToken()
+        {
+            var resp = await _httpService.Get<UserToken>($"{baseUrl}/RenewToken");
+            if (!resp.Success)
+            {
+                throw new ApplicationException(await resp.GetBody());
+
+            }
+            return resp.Response;
         }
     }
 }
