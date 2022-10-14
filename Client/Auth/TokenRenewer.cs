@@ -18,7 +18,7 @@ namespace BlazorMovies.Client.Auth
         {
        
             timer = new Timer();
-            timer.Interval = 5000; //4minutes
+            timer.Interval = 1000 * 60 *4; //4minutes
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }

@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject BlazorMovies.Client.Auth.TokenRenewer tokenRenewer
+@inject NavigationManager _navManager
+@inject IJSRuntime _js
 
 <div class="page">
     <div class="sidebar">
@@ -8,7 +10,7 @@
 
     <main>
         <div class="top-row px-4">
-            <LoginLinks/>
+            <LoginLinks />
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
         </div>
 
@@ -22,10 +24,24 @@
 </div>
 
 @code {
+    [CascadingParameter] public Task<AuthenticationState> AuthenticationState { get; set; }
+
+
     //private AppState AppState = new AppState { Color = "blue", Size = "8px" };
-    protected override void OnInitialized()
+    protected async override  Task OnInitializedAsync()
     {
+        await _js.InitializeInactivityTimer(DotNetObjectReference.Create(this));
         tokenRenewer.Initiate();
+    }
+
+    [JSInvokable]
+    public async Task Logout()
+    {
+        var authState = await AuthenticationState;
+        if (authState.User.Identity.IsAuthenticated)
+        {
+            _navManager.NavigateTo("/logout");
+        }
     }
 
 }

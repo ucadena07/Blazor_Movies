@@ -36,5 +36,10 @@ namespace BlazorMovies.Client.Helpers
                 "localStorage.removeItem",
                 key);
 
+        public static async ValueTask InitializeInactivityTimer<T>(this IJSRuntime js, DotNetObjectReference<T> dotNetObj) where T : class
+        {
+            await js.InvokeVoidAsync("initializeInactivityTimer", dotNetObj);
+        }
+
     }
 }
