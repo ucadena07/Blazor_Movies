@@ -5,9 +5,9 @@ namespace BlazorMovies.Client.Helpers
 {
     public static class IHttpServiceExtensionMethods
     {
-        public static async Task<T> GetHelper<T>(this IHttpService httpService, string url)
+        public static async Task<T> GetHelper<T>(this IHttpService httpService, string url, bool includeToken = true)
         {
-            var response = await httpService.Get<T>(url);
+            var response = await httpService.Get<T>(url, includeToken);
             if (!response.Success)
             {
                 throw new ApplicationException(await response.GetBody());
@@ -15,7 +15,7 @@ namespace BlazorMovies.Client.Helpers
             return response.Response;
         }
 
-        public static async Task<PaginatedResponse<T>> GetHelper<T>(this IHttpService httpService, string url, PaginationDto paginationDto)
+        public static async Task<PaginatedResponse<T>> GetHelper<T>(this IHttpService httpService, string url, PaginationDto paginationDto, bool includeToken = true)
         {
             string newUrl = "";
 
@@ -27,7 +27,7 @@ namespace BlazorMovies.Client.Helpers
             {
                 newUrl = $"{url}?page={paginationDto.Page}&recordsPerPage={paginationDto.RecordsPerPage}";
             }
-            var httpResponse = await httpService.Get<T>(newUrl);
+            var httpResponse = await httpService.Get<T>(newUrl, includeToken);
             if (!httpResponse.Success)
             {
                 throw new ApplicationException(await httpResponse.GetBody());
