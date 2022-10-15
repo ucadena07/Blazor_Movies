@@ -46,7 +46,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.SignIn.RequireConfirmedAccount = false;
 }).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddIdentityServer().AddApiAuthorization<IdentityUser, ApplicationDbContext>();
+builder.Services.AddIdentityServer().AddApiAuthorization<IdentityUser, ApplicationDbContext>().AddProfileService<IdentityProfileService>();
 builder.Services.AddAuthentication().AddIdentityServerJwt();
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
