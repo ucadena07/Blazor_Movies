@@ -2,6 +2,7 @@ using BlazorMovies.Client.Helpers;
 using BlazorMovies.Server;
 using BlazorMovies.Server.Helpers;
 using BlazorMovies.Server.Helpers.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,22 +22,32 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
 opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+//    .AddEntityFrameworkStores<ApplicationDbContext>()
+//    .AddDefaultTokenProviders();
+//});
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+
+
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+//{
+//    opt.TokenValidationParameters = new()
+//    {
+//        ValidateIssuer = false,
+//        ValidateAudience = false,
+//        ValidateLifetime = true,
+//        ValidateIssuerSigningKey =  true,
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:key"])),
+//        ClockSkew = TimeSpan.Zero
+//    };
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
-    opt.TokenValidationParameters = new()
-    {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey =  true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:key"])),
-        ClockSkew = TimeSpan.Zero
-    };
-});
+    options.SignIn.RequireConfirmedAccount = false;
+}).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddIdentityServer().AddApiAuthorization<IdentityUser, ApplicationDbContext>();
+builder.Services.AddAuthentication().AddIdentityServerJwt();
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IFileAzureService, FileAzureService>();
@@ -69,6 +80,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication();
+app.UseIdentityServer();
 app.UseAuthorization();
 
 

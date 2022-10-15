@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@inject BlazorMovies.Client.Auth.TokenRenewer tokenRenewer
+@*@inject BlazorMovies.Client.Auth.TokenRenewer tokenRenewer*@
 @inject NavigationManager _navManager
 @inject IJSRuntime _js
 
@@ -30,8 +30,8 @@
     //private AppState AppState = new AppState { Color = "blue", Size = "8px" };
     protected async override  Task OnInitializedAsync()
     {
-        await _js.InitializeInactivityTimer(DotNetObjectReference.Create(this));
-        tokenRenewer.Initiate();
+        //await _js.InitializeInactivityTimer(DotNetObjectReference.Create(this));
+        //tokenRenewer.Initiate();
     }
 
     [JSInvokable]

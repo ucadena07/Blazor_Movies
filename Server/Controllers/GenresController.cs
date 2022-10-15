@@ -8,7 +8,7 @@ namespace BlazorMovies.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     public class GenresController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

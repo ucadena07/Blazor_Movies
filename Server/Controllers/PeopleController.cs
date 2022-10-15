@@ -13,7 +13,7 @@ namespace BlazorMovies.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     public class PeopleController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
