@@ -1,12 +1,15 @@
 ﻿@inject IJSRuntime _js
+@inject IExampleInterface _example
 <div class="my-component">
     This component is defined in the <strong>BlazorMovies.Components</strong> library.
 </div>
-
+<br />
 <button class="btn btn-primary" @onclick="HandlePrompt">Display Prompt</button>
-
+<br />
 
 @Name - @Par1
+<br />
+Value from interface: @_example.GetValue()
 
 @code {
     public string Name { get; set; } = "Ulises";

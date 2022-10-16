@@ -5,6 +5,7 @@ using BlazorMovies.Client.Repository;
 using BlazorMovies.Client.Repository.IRepository;
 using BlazorMovies.Client.Services;
 using BlazorMovies.Client.Services.IService;
+using BlazorMovies.SharedComponents;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -32,6 +33,7 @@ builder.Services.AddScoped<IMovieRepository, MoviesRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IDisplayMessage, DisplayMessage>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IExampleInterface, ExampleImplementation>();
 //builder.Services.AddScoped<TokenRenewer>();
 //builder.Services.AddAuthorizationCore();
 

@@ -352,4 +352,5 @@ BlazorMovies/Server/bin/
 BlazorMovies/Client/obj/
 BlazorMovies/Client/bin/
 Server/appsettings.json
+RazorClassLibrary1/
 
