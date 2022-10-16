@@ -2,15 +2,17 @@ using BlazorMovies.Client;
 using BlazorMovies.Client.Auth;
 using BlazorMovies.Client.Helpers;
 using BlazorMovies.Client.Repository;
-using BlazorMovies.Client.Repository.IRepository;
+using BlazorMovies.Shared.Repository.IRepository;
 using BlazorMovies.Client.Services;
 using BlazorMovies.Client.Services.IService;
 using BlazorMovies.SharedComponents;
+using BlazorMovies.SharedComponents.Helpers;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.IdentityModel.Tokens.Jwt;
+
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -29,7 +31,7 @@ builder.Services.AddScoped<IHttpService, HttpService>();
 builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IMovieRepository, MoviesRepository>();
-//builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
+builder.Services.AddScoped<IAccountsRepository, AccountsRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 builder.Services.AddScoped<IDisplayMessage, DisplayMessage>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

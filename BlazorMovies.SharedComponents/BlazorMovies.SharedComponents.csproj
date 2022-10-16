@@ -12,7 +12,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Markdig" Version="0.30.4" />
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\BlazorMovies.Shared.csproj" />
   </ItemGroup>
 
 </Project>

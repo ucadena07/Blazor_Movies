@@ -9,14 +9,10 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.JSInterop;
 using BlazorMovies.Client;
-using BlazorMovies.Client.Shared;
 using BlazorMovies.Shared.Entities;
-using BlazorMovies.Client.Services;
-using BlazorMovies.Client.Services.IService;
-using BlazorMovies.Client.Helpers;
+using BlazorMovies.SharedComponents.Helpers;
 using MathNet.Numerics.Statistics;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -57,14 +53,6 @@ namespace BlazorMovies.Client.Pages
             //currentCount++;
         }
 
-        protected override void OnInitialized()
-        {
-            List<Movie> movies = _repo.GetMovies();
-        }
-
-        private async Task IncrementCountJs()
-        {
-            await _jsRuntime.InvokeVoidAsync("dotNetInstanceInovation", DotNetObjectReference.Create(this));
-        }
+    
     }
 }

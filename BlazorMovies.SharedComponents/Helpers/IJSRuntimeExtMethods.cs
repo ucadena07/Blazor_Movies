@@ -1,6 +1,6 @@
 ﻿using Microsoft.JSInterop;
 
-namespace BlazorMovies.Client.Helpers
+namespace BlazorMovies.SharedComponents.Helpers
 {
     public static class IJSRuntimeExtMethods
     {

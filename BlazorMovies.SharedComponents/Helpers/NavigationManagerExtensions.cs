@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace BlazorMovies.Client.Helpers
+namespace BlazorMovies.SharedComponents.Helpers
 {
   
         public static class NavigationManagerExtensions

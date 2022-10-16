@@ -1,5 +1,5 @@
 ﻿using BlazorMovies.Client.Helpers;
-using BlazorMovies.Client.Repository.IRepository;
+using BlazorMovies.Shared.Repository.IRepository;
 using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
 

@@ -1,5 +1,5 @@
-﻿using BlazorMovies.Client.Helpers;
-using BlazorMovies.Client.Repository.IRepository;
+﻿using BlazorMovies.SharedComponents.Helpers;
+using BlazorMovies.Shared.Repository.IRepository;
 using BlazorMovies.Shared.Dtos;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
