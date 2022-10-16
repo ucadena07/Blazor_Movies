@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace BlazorMovies.Server
+namespace BlazorMovies.SharedBackend
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<IdentityUser>
     {

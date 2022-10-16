@@ -3,6 +3,8 @@ using BlazorMovies.Server.Helpers;
 using BlazorMovies.Server.Helpers.Interfaces;
 using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
+using BlazorMovies.Shared.Repository.IRepository;
+using BlazorMovies.SharedBackend;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,13 +24,15 @@ namespace BlazorMovies.Server.Controllers
         private readonly IFileAzureService _fileAzureService;
         private readonly IFileService _fileService;
         private IMapper _mapper;
-        public MoviesController(ApplicationDbContext context, IFileAzureService fileAzureService, IFileService fileService, IMapper mapper, UserManager<IdentityUser> userManager)
+        private IMovieRepository _movieRepository;
+        public MoviesController(ApplicationDbContext context, IFileAzureService fileAzureService, IFileService fileService, IMapper mapper, UserManager<IdentityUser> userManager, IMovieRepository movieRepository)
         {
             _context = context;
             _fileAzureService = fileAzureService;
             _fileService = fileService;
             _mapper = mapper;
             _userManager = userManager;
+            _movieRepository = movieRepository;
         }
 
         [HttpPost]
@@ -58,27 +62,7 @@ namespace BlazorMovies.Server.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IndexPageDTO>> Get()
         {
-            var limit = 6;
-
-            var moviesInTheater = await _context.Movies
-                .Where(it => it.InTheathers).Take(limit)
-                .OrderByDescending(it => it.ReleaseDate)
-                .ToListAsync();
-
-            var todaysDate = DateTime.Now;
-
-            var upcomingReleases = await _context.Movies
-              .Where(it => it.ReleaseDate > todaysDate).Take(limit)
-              .OrderByDescending(it => it.ReleaseDate)
-              .ToListAsync();
-
-            var response = new IndexPageDTO
-            {
-                InTheaters = moviesInTheater,
-                UpcomingReleases = upcomingReleases,
-            };
-
-            return response;
+            return await _movieRepository.GetIndexPageDto();
         }
 
         [HttpGet("{id}")]
