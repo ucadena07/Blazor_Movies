@@ -2,7 +2,8 @@
 @using System.Reflection;
 @inject LazyAssemblyLoader _lazyLoader;
 
-<Router AppAssembly="@typeof(App).Assembly" 
+<CascadingValue Value="7" Name="Value">
+    <Router AppAssembly="@typeof(App).Assembly" 
 AdditionalAssemblies="new[]{typeof(Component1).Assembly}"
 OnNavigateAsync="OnNavigateAsync">
     <Found Context="routeData">
@@ -26,6 +27,8 @@ OnNavigateAsync="OnNavigateAsync">
 
     </NotFound>
 </Router>
+</CascadingValue>
+
 
 @code {
     private List<Assembly> LazyLoadedAssemblies = new List<Assembly>();
