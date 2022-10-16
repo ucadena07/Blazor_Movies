@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	<ProjectReference Include="..\BlazorMovies.SharedComponents\BlazorMovies.SharedComponents.csproj" />
 	<ProjectReference Include="..\Shared\BlazorMovies.Shared.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,19 @@
+﻿@inject IJSRuntime _js
+<div class="my-component">
+    This component is defined in the <strong>BlazorMovies.Components</strong> library.
+</div>
+
+<button class="btn btn-primary" @onclick="HandlePrompt">Display Prompt</button>
+
+
+@Name - @Par1
+
+@code {
+    public string Name { get; set; } = "Ulises";
+    [Parameter] public string Par1 { get; set; }
+
+    private async Task HandlePrompt()
+    {
+        await _js.Prompt("msg from razor class");
+    }
+}
