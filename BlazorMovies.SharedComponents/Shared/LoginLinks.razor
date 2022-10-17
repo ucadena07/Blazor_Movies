@@ -4,19 +4,36 @@
 @inject NavigationManager _navManager
 
 
+@if(AppMode == AppMode.WebAssembly){
+    <AuthorizeView>
+        <Authorized>
+            <span>Hello, @context.User.Identity.Name</span>
+            <button class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
+        </Authorized>
+        <NotAuthorized>
+            <a href="authentication/Register" class="nav-link btn btn-link">Register</a>
+            <a href="authentication/Login" class="nav-link btn btn-link">Login</a>
+        </NotAuthorized>
+    </AuthorizeView>
+}else{
+    <AuthorizeView>
+        <Authorized>
+            <a href="Identity/Account/Manage">Hello, @context.User.Identity?.Name!</a>
+            <form method="post" action="Identity/Account/LogOut">
+                <button type="submit" class="nav-link btn btn-link">Log out</button>
+            </form>
+        </Authorized>
+        <NotAuthorized>
+            <a href="Identity/Account/Register">Register</a>
+            <a href="Identity/Account/Login">Log in</a>
+        </NotAuthorized>
+    </AuthorizeView>
 
-<AuthorizeView>
-    <Authorized>
-        <span>Hello, @context.User.Identity.Name</span>
-        <button  class="nav-link btn btn-link" @onclick="BeginSignOut">Log out</button>
-    </Authorized>
-    <NotAuthorized>
-        <a href="authentication/Register" class="nav-link btn btn-link">Register</a>
-        <a href="authentication/Login" class="nav-link btn btn-link">Login</a>
-    </NotAuthorized>
-</AuthorizeView>
+}
+
 
 @code {
+    [CascadingParameter] public AppMode AppMode { get; set; }
     private async Task BeginSignOut(MouseEventArgs args)
     {
         _navManager.NavigateTo("authentication/logout");

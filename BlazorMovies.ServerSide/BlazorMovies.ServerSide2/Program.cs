@@ -1,6 +1,8 @@
 using BlazorMovies.ServerSide2.Areas.Identity;
+using BlazorMovies.ServerSide2.Helpers;
 using BlazorMovies.Shared.Repository.IRepository;
 using BlazorMovies.SharedBackend;
+using BlazorMovies.SharedBackend.Helpers;
 using BlazorMovies.SharedBackend.Repository;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -16,13 +18,13 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
 builder.Services.AddScoped<IMovieRepository, MoviesRepository>();
-
+builder.Services.AddScoped<IAuthenticationStateService, AuthenticationStateServiceServerSide>();
 
 var app = builder.Build();
 

@@ -4,6 +4,7 @@ using BlazorMovies.Server.Helpers;
 using BlazorMovies.Server.Helpers.Interfaces;
 using BlazorMovies.Shared.Repository.IRepository;
 using BlazorMovies.SharedBackend;
+using BlazorMovies.SharedBackend.Helpers;
 using BlazorMovies.SharedBackend.Repository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -56,6 +57,7 @@ builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IFileAzureService, FileAzureService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddBlazorMovies();
+builder.Services.AddScoped<IAuthenticationStateService,AuthenticationStateServiceWebAssembly>();
 
 
 builder.Services.AddAutoMapper(typeof(Program));

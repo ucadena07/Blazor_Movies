@@ -2,6 +2,7 @@
 using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
 using BlazorMovies.Shared.Repository.IRepository;
+using BlazorMovies.SharedBackend.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,10 +16,12 @@ namespace BlazorMovies.SharedBackend.Repository
     public class MoviesRepository : IMovieRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly IAuthenticationStateService _authStateService;
 
-        public MoviesRepository(ApplicationDbContext context)
+        public MoviesRepository(ApplicationDbContext context, IAuthenticationStateService stateService)
         {
             _context = context;
+            _authStateService = stateService;
 
         }
         public Task<int> CreateMovie(Movie movie)
@@ -39,6 +42,8 @@ namespace BlazorMovies.SharedBackend.Repository
         public async Task<IndexPageDTO> GetIndexPageDto()
         {
             var limit = 6;
+
+            var testId = await _authStateService.GetCurrentUserId();
 
             var moviesInTheater = await _context.Movies
                 .Where(it => it.InTheathers).Take(limit)
