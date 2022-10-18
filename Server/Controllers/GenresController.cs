@@ -1,4 +1,5 @@
 ﻿using BlazorMovies.Shared.Entities;
+using BlazorMovies.Shared.Repository.IRepository;
 using BlazorMovies.SharedBackend;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -13,16 +14,17 @@ namespace BlazorMovies.Server.Controllers
     public class GenresController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public GenresController(ApplicationDbContext context)
+        private readonly IGenreRepository _genreRepo;
+        public GenresController(ApplicationDbContext context, IGenreRepository genreRepository)
         {
             _context = context;
+            _genreRepo = genreRepository;   
         }
 
         [HttpPost]
         public async Task<ActionResult<int>> Post(Genre genre)
         {
-            _context.Add(genre);
-            await _context.SaveChangesAsync();
+            await _genreRepo.CreateGenre(genre);
             return genre.Id;
         }
 
@@ -30,14 +32,13 @@ namespace BlazorMovies.Server.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<List<Genre>>> Get()
         {
-            return await _context.Genres.ToListAsync();
+            return await _genreRepo.GetGenres();
         }
 
         [HttpPut]
         public async Task<ActionResult<int>> Put(Genre genre)
         {
-            _context.Attach(genre).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            await _genreRepo.UpdateGenre(genre);
             return NoContent();
         }
 
@@ -45,21 +46,21 @@ namespace BlazorMovies.Server.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<Genre>> Get(int id)
         {
-            var genre = await _context.Genres.FirstOrDefaultAsync(it => it.Id == id);
-            if (genre == null)
-                return NotFound();
+            var genre = await _genreRepo.GetGenre(id);
+            if (genre == null) { return NotFound(); }
             return genre;
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var genre = await _context.Genres.FirstOrDefaultAsync(it => it.Id == id);
+            var genre = await _genreRepo.GetGenre(id);
             if (genre == null)
+            {
                 return NotFound();
+            }
 
-            _context.Remove(genre);
-            await _context.SaveChangesAsync();
+            await _genreRepo.DeleteGenre(id);
             return NoContent();
         }
     }
