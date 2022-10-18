@@ -5,6 +5,7 @@ using BlazorMovies.Shared.Dtos;
 using BlazorMovies.Shared.Entities;
 using BlazorMovies.Shared.Repository.IRepository;
 using BlazorMovies.SharedBackend;
+using BlazorMovies.SharedBackend.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

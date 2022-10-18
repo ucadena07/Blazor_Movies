@@ -15,5 +15,13 @@ namespace BlazorMovies.Server.Helpers
             double totalAmountOfPages = Math.Ceiling(count / recordsPerPage);
             httpContext.Response.Headers.Add("totalAmountPages", totalAmountOfPages.ToString());
         }
+
+        public static  void InsertPaginationParametersInResponse(this HttpContext httpContext, int totalAmountOfPages)
+        {
+            if (httpContext == null)
+                throw new ArgumentNullException(nameof(httpContext));
+
+            httpContext.Response.Headers.Add("totalAmountPages", totalAmountOfPages.ToString());
+        }
     }
 }

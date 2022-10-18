@@ -1,6 +1,7 @@
 ﻿using BlazorMovies.Server.Helpers;
 using BlazorMovies.Shared.Dtos;
 using BlazorMovies.SharedBackend;
+using BlazorMovies.SharedBackend.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

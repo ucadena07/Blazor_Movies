@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BlazorMovies.Shared.Entities;
 
-namespace BlazorMovies.Server.Helpers
+namespace BlazorMovies.SharedBackend.Helpers
 {
     public class AutoMapperProfiles : Profile
     {

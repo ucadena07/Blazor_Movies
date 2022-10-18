@@ -1,6 +1,8 @@
-﻿using BlazorMovies.Server.Helpers.Interfaces;
+﻿
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
-namespace BlazorMovies.Server.Helpers
+namespace BlazorMovies.SharedBackend.Helpers
 {
     public class FileService : IFileService
     {

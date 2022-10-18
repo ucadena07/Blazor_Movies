@@ -55,12 +55,11 @@ builder.Services.AddAuthentication().AddIdentityServerJwt();
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IFileAzureService, FileAzureService>();
-builder.Services.AddScoped<IFileService, FileService>();
+
 builder.Services.AddBlazorMovies();
 builder.Services.AddScoped<IAuthenticationStateService,AuthenticationStateServiceWebAssembly>();
 
 
-builder.Services.AddAutoMapper(typeof(Program));
 
 
 
