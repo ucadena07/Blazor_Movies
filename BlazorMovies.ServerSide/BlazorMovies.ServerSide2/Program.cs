@@ -4,6 +4,8 @@ using BlazorMovies.Shared.Repository.IRepository;
 using BlazorMovies.SharedBackend;
 using BlazorMovies.SharedBackend.Helpers;
 using BlazorMovies.SharedBackend.Repository;
+using BlazorMovies.SharedComponents.Helpers;
+using MathNet.Numerics;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -24,7 +26,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>(); 
 builder.Services.AddBlazorMovies();
-
+builder.Services.AddTransient<IDisplayMessage, DisplayMessage>();
 builder.Services.AddScoped<IAuthenticationStateService, AuthenticationStateServiceServerSide>();
 
 var app = builder.Build();
