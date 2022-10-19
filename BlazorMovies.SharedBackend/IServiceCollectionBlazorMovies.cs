@@ -19,6 +19,7 @@ namespace BlazorMovies.SharedBackend
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(new[] { typeof(AutoMapperProfiles).Assembly });
             services.AddScoped<IFileService, FileService>();
             return services;
