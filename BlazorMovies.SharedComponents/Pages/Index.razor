@@ -1,15 +1,16 @@
 ﻿@page "/"
 
 @inject IMovieRepository _movieRepo
+@inject IStringLocalizer<Resource> _localizer
 
 
 <div>
-    <h3>In Theathers</h3>
+    <h3>@_localizer["intheathers"]</h3>
     <MoviesList Movies="InTheathers"></MoviesList>
 </div>
 
 <div>
-    <h3>Upcoming Releases</h3>
+    <h3>@_localizer["upcomingreleases"]</h3>
     <MoviesList Movies="UpcomingReleases"></MoviesList>
 </div>
 

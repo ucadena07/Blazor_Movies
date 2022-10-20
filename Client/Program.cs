@@ -22,7 +22,7 @@ builder.Services.AddHttpClient<HttpClientWithToken>(client =>  client.BaseAddres
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
 builder.Services.AddHttpClient<HttpClientWIthOutToken>(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
-
+builder.Services.AddLocalization();
 
 builder.Services.AddSingleton<SingletonService>();
 builder.Services.AddTransient<TransientService>();
