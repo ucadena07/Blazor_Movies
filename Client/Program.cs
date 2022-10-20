@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.IdentityModel.Tokens.Jwt;
-
+using Microsoft.JSInterop;
+using System.Globalization;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -52,5 +53,23 @@ JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 
 builder.Services.AddApiAuthorization();
+
+var app = builder.Build();
+
+var js = app.Services.GetRequiredService<IJSRuntime>();
+var culture = await js.InvokeAsync<string>("getFromLocalStorage", "culture");
+
+if (culture == null)
+{
+    var selectedCulture = new CultureInfo("en-US");
+    CultureInfo.DefaultThreadCurrentCulture = selectedCulture;
+    CultureInfo.DefaultThreadCurrentUICulture = selectedCulture;
+}
+else
+{
+    var selectedCulture = new CultureInfo(culture);
+    CultureInfo.DefaultThreadCurrentCulture = selectedCulture;
+    CultureInfo.DefaultThreadCurrentUICulture = selectedCulture;
+}
 
 await builder.Build().RunAsync();
